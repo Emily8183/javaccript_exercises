@@ -24,15 +24,17 @@ for (let i of obj1) {
   console.log(i);
 }
 
-//2
+//2 iterator and iterable must are the same object
 console.log("2");
 
 let obj2 = {
   a: 10,
   b: 20,
   [Symbol.iterator]() {
+    //must return the object itself otherwise there wont be any reference
     return this;
   },
+  //iterable method
   next() {
     if (obj2.a < obj2.b) {
       return { value: obj2.a++, done: false };

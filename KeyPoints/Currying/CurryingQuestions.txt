@@ -1,0 +1,10 @@
+Q.1) What is function currying?
+currying is taking a function which needs 2 arguments and breaking it into multiple functions that only take 1 argument
+
+Q.2)const multiplication=a=>b=>c=>return a*b*c
+What will this statement do? Explain in detail.
+
+Q.3) Explain practical usage of function currying.
+For passing partial parameters or avoiding unwanted repetitions. 
+e.g. product price was passed only once, 
+depends on the different amount of discount, by using currying, you can calculate in an efficient way
