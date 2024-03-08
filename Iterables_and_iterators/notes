@@ -1,0 +1,11 @@
+Q.1) What is the purpose of the iterator ?
+The use of an iterator is to make a data structure iterable, which is not array, strings, maps or sets or other similar collections are already iterable.
+
+But when you create an object which should have facility of putting for off loop on it, then you need to create the iterator.
+
+Q.2) How do you create an iterator ?
+Need two methods. To use "Symbol.iterator" method to create iterator and use the next() method to return the object;
+e.g. {value: nextVal, done: false}
+
+Q.3) Explain a practical use of an iterator ?
+When you are working with another programmer and need to have a for loop to iterate the objects
