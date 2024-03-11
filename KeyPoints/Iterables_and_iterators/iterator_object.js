@@ -24,7 +24,7 @@ for (let i of obj1) {
   console.log(i);
 }
 
-//2 iterator and iterable must are the same object
+//2 iterator and iterable must be the same object
 console.log("2");
 
 let obj2 = {
