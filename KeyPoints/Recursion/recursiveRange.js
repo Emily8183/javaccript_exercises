@@ -8,4 +8,4 @@ function recursiveRange(num) {
   }
 }
 
-console.log(recursiveRange(10));
+console.log(recursiveRange(28));
