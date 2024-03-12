@@ -1,0 +1,43 @@
+Q.1) When do you need try...catch ? 
+when you see that the code executed is expecting some unforeseen situations, some portion of code needs to be managed properly so that the program doesn't stop in between.
+Then you use the try catch block.
+It's all about handling the error without breaking the code execution.
+
+
+Q.2) How can you generate an error ?
+We can generate an error with "throw" statements.
+
+Q.3) Can you generate SyntaxError or ReferenceError kind of errors ?
+We can generate an error with "throw" statements.
+Yes these are the predefined JavaScript errors, but you can use the throw statement to raise the JavaScript builtin errors as well.
+
+Q.4) What is the purpose of the finally block ?
+So the final block contains the core, which is always executed.
+
+Whether that is an error or that is no error in the code.
+
+So if there is an error, the catch code is executed.
+
+But finally, code is something which is always executed.
+
+So finally contains code which does some finishing work or some code which ought to be executed.
+
+We put it in finally block.
+
+
+Q.5) How can you refer to the name or description of error ?
+Pass the error object, such as err.name or err.message, to catch block
+
+catch(err) {
+    console.log(err.name);
+    console.log(err.message);
+}
+
+Q.6) Can we have finally without a catch block as well ?
+yes, you can only have try block but no catch block.
+
+e.g.: try{
+    //statements
+} finally {
+    //statements
+}
