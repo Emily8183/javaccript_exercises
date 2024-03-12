@@ -1,5 +1,24 @@
 Q.1) What are generator functions? Explain the syntax.
+when you write a function, it returns a single value.
+
+You can think of generators as a kind of function which can return multiple values in phases.
+
 Q.2) Which is the right syntax function* () { } or function *(){} ?
+All correct
+
 Q.3) Explain all methods of generator objects.
-Q.4) Explain the use of “yield*”
+,the next method which actually moves the function pointer to the next line from the next, that is the last suspended yield.
+
+It proceeds further.
+
+Whereas the return allows you to terminate the function.
+
+And the throw method, which can help you to raise an error with the generator object.
+
+Q.4) Explain the use of ï¿½yield*ï¿½
+ it's about calling a generator function from another generator function.
+
+Or even when you have to call a recursive generator function, then you have to use the yield star syntax.
+
 Q.5) Can you prevent return() from terminating the generator ?
+yes, by using - yield "finally"
