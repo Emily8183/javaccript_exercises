@@ -1,4 +1,10 @@
-Q.1) What will be the output in case an array has “undefined” while sorting the values ?
+Q.1) What will be the output in case an array has ï¿½undefinedï¿½ while sorting the values ?
+undefined will always shown at the end 
+
 Q.2) How will sort an object literal ? 
+Code6
+
 Q.3) How will you sort a numeric array ? 
+You will need compare function otehrwise will sort as a string and get the result not desired
+
 Q.4) Sort all values of array in descending order.

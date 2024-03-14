@@ -1,5 +1,6 @@
-let products=["Banana","Orange","Grapes","Apple"];
-products.sort(function(a,b){
-   console.log(a,b);
+let products = ["Banana", "Orange", "Grapes", "Apple"];
+products.sort(function (a, b) {
+  //compare function
+  console.log(a, b);
 });
 console.log(products);
