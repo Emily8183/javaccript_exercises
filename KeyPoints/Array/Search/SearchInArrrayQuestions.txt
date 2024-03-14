@@ -1,7 +1,15 @@
 Q.1)What is the difference between find() and filter() method ?
+find() is to find the 1st element, filter() is to filter the elements
+
 Q.2)If there is no value to return, what will findIndex() return ?
+-1
 Q.3) What is the difference between indexOf() and includes() method ?
+
+indexOf() returns the index of the first occurrence of the element in the array, while includes() returns true or false
+
 Q.4) How will you search multiple values in an array ?
-Q.5)What will be the output of this code ?
-        => let arr=["One","Two","Three","Four","Five"];
+arr.filter()
+
+Q.5)What will be the output of this code ?  -1
+       =>  let arr=["One","Two","Three","Four","Five"];
              console.log(arr.lastIndexOf("Abcd")); 
