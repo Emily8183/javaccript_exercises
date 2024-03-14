@@ -4,4 +4,4 @@ for (let elem of arr) {
 }
 
 // in will display the index number
-//off will return he element directly, which is a faster way to loop through.
+//of will return he element directly, which is a faster way to loop through.

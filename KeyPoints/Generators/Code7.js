@@ -1,4 +1,4 @@
-// The yield operator, which we are using, is something we can use only in generator functions.
+// The yield operator can use only in generator functions.
 
 // When it comes to recursive function or even calling one generator function from another.
 

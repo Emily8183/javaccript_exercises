@@ -1,0 +1,8 @@
+Q.1) What is the difference between push() and unshift() method ?
+Q.2) What is the difference between pop() and shift() ?
+Q.3) How can you insert an element at a given position ?
+Q.4) How can you remove  a specific element ?
+Q.5) What does splice() return ?
+Q.6)  If there is not element removed then what will splice() method return ?
+=> let arr=["One","Two","Three","Four","Five"];
+     console.log(arr.splice(2,0,"New")); 
