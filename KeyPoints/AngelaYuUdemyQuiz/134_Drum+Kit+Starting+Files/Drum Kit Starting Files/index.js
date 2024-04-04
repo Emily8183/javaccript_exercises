@@ -25,6 +25,21 @@ for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
         tom4.play();
         break;
 
+      case "j":
+        var crash = new Audio("sounds/" + "crash.mp3");
+        crash.play();
+        break;
+
+      case "k":
+        var snare = new Audio("sounds/" + "snare.mp3");
+        snare.play();
+        break;
+
+      case "l":
+        var kick = new Audio("sounds/" + "kick-bass.mp3");
+        kick.play();
+        break;
+
       default:
         console.log(this.innerHTML);
     }
