@@ -2,6 +2,7 @@ for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
   document.querySelectorAll(".drum")[i].addEventListener("click", function () {
     let buttonInnerHTML = this.innerHTML;
     makeSound(buttonInnerHTML);
+    animation(buttonInnerHTML);
   });
 }
 
@@ -9,6 +10,7 @@ document.addEventListener("keydown", function (event) {
   //addEventListener is a high order function
   //function(event), which is the function passed in, is a callback function
   makeSound(event.key);
+  animation(event.key);
 });
 
 function makeSound(key) {
@@ -26,4 +28,12 @@ function makeSound(key) {
       tom3.play();
       break;
   }
+}
+
+function animation(key) {
+  var activeButton = document.querySelector("." + key);
+  activeButton.classList.add("pressed");
+  setTimeout(function () {
+    activeButton.classList.remove("pressed");
+  }, 200);
 }
