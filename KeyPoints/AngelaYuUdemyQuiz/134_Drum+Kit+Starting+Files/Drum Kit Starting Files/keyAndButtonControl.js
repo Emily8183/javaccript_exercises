@@ -6,6 +6,8 @@ for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
 }
 
 document.addEventListener("keydown", function (event) {
+  //addEventListener is a high order function
+  //function(event), which is the function passed in, is a callback function
   makeSound(event.key);
 });
 

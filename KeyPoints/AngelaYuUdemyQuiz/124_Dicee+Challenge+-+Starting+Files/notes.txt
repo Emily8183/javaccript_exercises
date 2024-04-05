@@ -1,0 +1,14 @@
+1) Document Object Model(DOM)： "breaks down" the webpage into individual objects that we can select and manipulate by using JavaScript
+
+2)getElementByClass: even if there's only one item that has that particular class that you're selecting, you still have to select the first item using the square brackets and the index 0.
+getElementById: 选中的是单独一个unique id,不是array
+
+3) In DOM, to change the property name in CSS by using JavaScript, the property needs to be camel-cased. Also need to use a string the change the CSS value
+
+4) classList: add, remove, toggle
+
+5) 常用：document.querySelector() 或者document.querySelectorAll();
+
+
+
+
