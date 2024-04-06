@@ -1,0 +1,8 @@
+//从npm中下载需要的模块
+//第一步：change to the correct directory, and run the command: npm init
+//第二步：跟着步骤填写，skip不重要的内容，例如test command, git repository, keywords等。version, entry point, license用默认值。
+//第三步：找到所需要的npm模块页面，复制安装地址，一般是npm i xxxx (i代表install)
+//第四步：去package.json，在main下面添加：  "type": "module", 这样就可以用关键词"import"
+import xxx from "npmname"
+
+
