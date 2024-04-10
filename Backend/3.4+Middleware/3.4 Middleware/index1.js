@@ -13,6 +13,11 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
+app.post("/submit", (req, res) => {
+  const formData = req.body;
+  console.log(formData);
+});
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
