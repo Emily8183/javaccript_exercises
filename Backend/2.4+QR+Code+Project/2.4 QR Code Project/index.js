@@ -10,7 +10,6 @@ import fs from "node:fs";
 
 inquirer
   .prompt([
-    /* Pass your questions in here */
     {
       message: "what URL do you have?",
       name: "url",
@@ -19,8 +18,9 @@ inquirer
   ])
   .then((answers) => {
     console.log(answers.url);
-    var qr_svg = qr.image(answers.url, { type: "png" });
+    let qr_svg = qr.image(answers.url, { type: "png" });
     qr_svg.pipe(fs.createWriteStream("qr_img.png"));
+    y9;
 
     fs.writeFile("URL.txt", answers.url, (err) => {
       if (err) {
