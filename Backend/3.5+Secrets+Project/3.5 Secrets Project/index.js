@@ -18,6 +18,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 function checkPassword(req, res, next) {
   userPassword = req.body["password"];
+  //   if (userPassword === "ILoveProgramming") {
+  //     userIsAuthorized = true;
+  //   }
   next();
 }
 
@@ -33,6 +36,7 @@ app.post("/check", (req, res) => {
   } else {
     res.sendFile(__dirname + "/public/index.html");
   }
+  //OR: userIsAuthorized if-else situration;
 });
 
 app.listen(port, () => {
