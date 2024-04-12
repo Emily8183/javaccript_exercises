@@ -6,7 +6,9 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// add the variable for fName and lName
+function calculateLength(fName, lName) {
+  // to calculate the full name's length
+}
 
 app.get("/", (req, res) => {
   // to display the default message
