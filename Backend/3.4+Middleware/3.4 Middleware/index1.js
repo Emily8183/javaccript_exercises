@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
+  // __dirname is only used when the it's static file
 });
 
 app.post("/submit", (req, res) => {
