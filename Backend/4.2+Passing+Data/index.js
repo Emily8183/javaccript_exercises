@@ -5,16 +5,19 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
-function calculateLength(fName, lName) {
-  // to calculate the full name's length
-}
+//this is necessary for bodyParser to work (in order to get the input from users)
 
 app.get("/", (req, res) => {
-  // to display the default message
+  res.render(
+    "index.ejs"
+    // to display the main page
+  );
 });
 
 app.post("/submit", (req, res) => {
+  res.render("index.ejs", {
+    fullNameLength: req.body["fName"].length + req.body["lName"].length,
+  });
   //to display the full name's length
 });
 

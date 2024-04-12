@@ -7,9 +7,15 @@
   </head>
 
   <body>
-    <%-
-    <p><%= message %></p>
-    %>
+    <div>
+      <% if(locals.fullNameLength) { %>
+      <!-- must add "locals." here otherwise it will not work -->
+      <h1>There are <%= fullNameLength %> letters in your name😆</h1>
+      <% } else { %>
+      <h1>Put your lovely name here!</h1>
+      <% } %>
+    </div>
+
     <form action="/submit" method="POST">
       <input type="text" name="fName" placeholder="First name" />
       <input type="text" name="lName" placeholder="Last name" />
