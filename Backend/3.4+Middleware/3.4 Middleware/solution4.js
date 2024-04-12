@@ -1,3 +1,5 @@
+//collect two inputs from the user: street and pet name.
+
 import express from "express";
 import bodyParser from "body-parser";
 import { dirname } from "path";
