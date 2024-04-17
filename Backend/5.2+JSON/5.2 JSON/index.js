@@ -21,6 +21,7 @@ let data = "";
 app.post("/recipe", (req, res) => {
   //在post中，定义用户点击不同按钮的事件。分为beef, chicken和fish三种情况，使用switch语句。
   //req.body in Express.js represents the data sent as part of a POST request's body.
+  //注意这里的req.body.choice是提交按钮的name属性，代表按钮属于哪个group，用户按下对应按钮，得到的是value。
 
   switch (req.body.choice) {
     case "chicken":
