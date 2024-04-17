@@ -15,7 +15,9 @@ app.get("/", async (req, res) => {
   try {
     const response = await axios.get("https://bored-api.appbrewery.com/random");
     const result = response.data;
-    res.render("index.ejs", { data: result });
+
+    res.render("index.ejs", { data: result, error: null });
+    // 通过在没有错误时将 error 设置为 null，确保在模板中使用 error 变量时始终有一个值。
   } catch (error) {
     console.error("Failed to make request:", error.message);
     res.render("index.ejs", {
