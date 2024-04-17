@@ -3,6 +3,7 @@
 //creates a function that add an eventhandler to each drum button
 
 for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
+  //document.querySelectorAll(".drum").length shows the number of drum buttons
   document.querySelectorAll(".drum")[i].addEventListener("click", function () {
     switch (this.innerHTML) {
       case "w":
