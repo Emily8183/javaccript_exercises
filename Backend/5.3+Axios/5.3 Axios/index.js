@@ -16,9 +16,10 @@ app.get("/", async (req, res) => {
   try {
     const response = await axios.get("https://bored-api.appbrewery.com/random");
     const result = response.data;
+    // 在Axios中，response.data是一个属性，用于访问从服务器返回的响应数据。这种语法是Axios的固定搭配。当你使用Axios进行GET请求时，response.data将会包含从服务器返回的数据。
+    // when we get JSON data back, we can simply tap into it and it can automatically turn it into a JavaScript object without needing to add an extra step and use JSON.parse.
 
     res.render("index.ejs", { data: result });
-    // 通过在没有错误时将 error 设置为 null，确保在模板中使用 error 变量时始终有一个值。
   } catch (error) {
     console.error("Failed to make request:", error.message);
     res.render("index.ejs", {
