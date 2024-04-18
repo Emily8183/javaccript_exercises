@@ -5,11 +5,11 @@ const app = express();
 const port = 3000;
 const API_URL = "https://secrets-api.appbrewery.com/";
 
-//TODO 1: Fill in your values for the 3 types of auth.
+// for the safety in github, all the following auth details have been removed. All tests are passed.
 const username = "";
 const password = "";
 const apiKey = "";
-// const yourBearerToken = "";
+const bearerToken = "";
 
 app.get("/", (req, res) => {
   res.render("index.ejs", { content: "API Response." });
@@ -52,7 +52,7 @@ app.get("/basicAuth", async (req, res) => {
   }
 });
 
-//apiKey (using Axios directly without using the async/await syntax. )
+//apiKey (using Axios directly without using the async/await syntax.  Pay attention to where to put the res.render())
 app.get("/apiKey", (req, res) => {
   axios
     .get(`https://secrets-api.appbrewery.com/filter?score=5&apiKey=${apiKey}`)
@@ -66,18 +66,22 @@ app.get("/apiKey", (req, res) => {
     });
 });
 
+//bearerToken (pay attention to where to put the token and .then())
 app.get("/bearerToken", (req, res) => {
-  //TODO 5: Write your code here to hit up the /secrets/{id} endpoint
-  //and get the secret with id of 42
-  //HINT: This is how you can use axios to do bearer token auth:
-  // https://stackoverflow.com/a/52645402
-  /*
-  axios.get(URL, {
-    headers: { 
-      Authorization: `Bearer <YOUR TOKEN HERE>` 
-    },
-  });
-  */
+  axios
+    .get("https://secrets-api.appbrewery.com/secrets/42", {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    })
+    .then(function (response) {
+      console.log(response.data);
+
+      res.render("index.ejs", { content: JSON.stringify(response.data) });
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 });
 
 app.listen(port, () => {
