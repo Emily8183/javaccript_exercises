@@ -18,14 +18,14 @@ app.get("/", (req, res) => {
 // noAuth
 app.get("/noAuth", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://secrets-api.appbrewery.com/random"
-    );
+    const response = await axios.get(API_URL + "random");
+
     const result = response.data;
     const jsonData = JSON.stringify(result);
-    // to convert from JSON to JS object
+    // to convert from JS object to JSON string then pass to jsonData
 
     res.render("index.ejs", { content: jsonData });
+    // pass the jsonData string to the ejs file
   } catch (error) {
     res.status(404).render("index.ejs", { content: error.response.data });
   }
@@ -34,15 +34,12 @@ app.get("/noAuth", async (req, res) => {
 //basicAuth by username and password
 app.get("/basicAuth", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://secrets-api.appbrewery.com/all?page=2",
-      {
-        auth: {
-          username,
-          password,
-        },
-      }
-    );
+    const response = await axios.get(API_URL + "all?page=2", {
+      auth: {
+        username,
+        password,
+      },
+    });
     const result = response.data;
     const jsonData = JSON.stringify(result);
 
@@ -52,10 +49,16 @@ app.get("/basicAuth", async (req, res) => {
   }
 });
 
-//apiKey (using Axios directly without using the async/await syntax.  Pay attention to where to put the res.render())
+//apiKey (using Axios directly without using the async/await syntax. Pay attention to where to put the res.render())
 app.get("/apiKey", (req, res) => {
   axios
-    .get(`https://secrets-api.appbrewery.com/filter?score=5&apiKey=${apiKey}`)
+    // .get(`https://secrets-api.appbrewery.com/filter?score=5&apiKey=${apiKey}`)
+    .get(API_URL + "filter", {
+      params: {
+        score: 5,
+        apiKey,
+      },
+    })
     .then(function (response) {
       console.log(response.data);
 
@@ -69,7 +72,7 @@ app.get("/apiKey", (req, res) => {
 //bearerToken (pay attention to where to put the token and .then())
 app.get("/bearerToken", (req, res) => {
   axios
-    .get("https://secrets-api.appbrewery.com/secrets/42", {
+    .get(API_URL + "secrets/42", {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },
