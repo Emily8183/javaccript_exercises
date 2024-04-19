@@ -17,15 +17,26 @@ import axios from "axios";
 
 const app = express();
 const port = 3000;
-const API_URL = "https://secrets-api.appbrewery.com/random";
+const API_URL = "https://secrets-api.appbrewery.com";
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.render("index.ejs", {
-    secret: "secret",
-    user: "user",
-  });
+app.get("/", async (req, res) => {
+  try {
+    const result = await axios.get(API_URL + "/random");
+
+    const secretJSON = JSON.stringify(result.data.secret);
+
+    const userJSON = JSON.stringify(result.data.username);
+
+    res.render("index.ejs", {
+      secret: secretJSON,
+      user: userJSON,
+    });
+  } catch (error) {
+    console.log(error.response.data);
+    res.status(500).send({ message: "Something went wrong" });
+  }
 });
 
 app.listen(port, () => {
