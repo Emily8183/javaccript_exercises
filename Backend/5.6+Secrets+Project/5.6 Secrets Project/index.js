@@ -24,6 +24,7 @@ app.use(express.static("public"));
 app.get("/", async (req, res) => {
   try {
     const result = await axios.get(API_URL + "/random");
+    // .get() returns a Promise. Can either use .then() or async/await
 
     const secretJSON = JSON.stringify(result.data.secret);
 
