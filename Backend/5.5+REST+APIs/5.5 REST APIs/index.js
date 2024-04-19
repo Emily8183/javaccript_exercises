@@ -37,16 +37,15 @@ app.post("/get-secret", async (req, res) => {
 
 //POST
 app.post("/post-secret", async (req, res) => {
-  const searchId = req.body.id;
-
   try {
     const response = await axios.post(
       API_URL + "/secrets/",
-      // id自动生成？
-      {
-        secret: req.body.secret,
-        score: req.body.score,
-      },
+
+      // {
+      //   secret: req.body.secret,
+      //   score: req.body.score,
+      // },
+      req.body,
       config
     );
 
@@ -59,19 +58,63 @@ app.post("/post-secret", async (req, res) => {
   }
 });
 
+//PUT
+// PUT, PATCH, DELETE 3个方法因为源代码有问题，不能测试成功。以下代码应该是正确的
+//源代码解决方法：把老师的API放到自己的local server，每次测试前领取一个新的token （https://gale.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/38912020?couponCode=ST7MT41824#questions/20424464/）
+
 app.post("/put-secret", async (req, res) => {
-  const searchId = req.body.id;
-  // TODO 3: Use axios to PUT the data from req.body to the secrets api servers.
+  try {
+    const response = await axios.put(
+      API_URL + "/secrets/" + req.body.id,
+      req.body,
+      config
+    );
+
+    const result = response.data;
+
+    const jsonData = JSON.stringify(result);
+
+    res.render("index.ejs", { content: jsonData });
+  } catch (error) {
+    res.render("index.ejs", { content: error.message });
+  }
 });
 
+//PATCH
 app.post("/patch-secret", async (req, res) => {
-  const searchId = req.body.id;
-  // TODO 4: Use axios to PATCH the data from req.body to the secrets api servers.
+  try {
+    const response = await axios.patch(
+      API_URL + "/secrets/" + req.body.id,
+      req.body,
+      config
+    );
+
+    const result = response.data;
+
+    const jsonData = JSON.stringify(result);
+
+    res.render("index.ejs", { content: jsonData });
+  } catch (error) {
+    res.render("index.ejs", { content: error.message });
+  }
 });
 
+//DELETE
 app.post("/delete-secret", async (req, res) => {
-  const searchId = req.body.id;
-  // TODO 5: Use axios to DELETE the item with searchId from the secrets api servers.
+  try {
+    const response = await axios.delete(
+      API_URL + "/secrets/" + req.body.id,
+      config
+    );
+
+    const result = response.data;
+
+    const jsonData = JSON.stringify(result);
+
+    res.render("index.ejs", { content: jsonData });
+  } catch (error) {
+    res.render("index.ejs", { content: error.message });
+  }
 });
 
 app.listen(port, () => {
