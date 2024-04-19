@@ -15,6 +15,16 @@ app.get("/random", (req, res) => {
 });
 
 //2. GET a specific joke
+app.get("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  //parseInt把parameter转换为int type
+  const findJoke = jokes.find((joke) => joke.id === id);
+  if (findJoke) {
+    res.json(findJoke);
+  } else {
+    res.status(404).json({ error: "Joke not found" });
+  }
+});
 
 //3. GET a jokes by filtering on the joke type
 
