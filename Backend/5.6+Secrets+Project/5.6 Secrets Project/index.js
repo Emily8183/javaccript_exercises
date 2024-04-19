@@ -24,11 +24,14 @@ app.use(express.static("public"));
 app.get("/", async (req, res) => {
   try {
     const result = await axios.get(API_URL + "/random");
-    // .get() returns a Promise. Can either use .then() or async/await
+    // axios.get() returns a Promise. Can either use .then() or async/await
 
-    const secretJSON = JSON.stringify(result.data.secret);
+    // const secretJSON = JSON.stringify(result.data.secret);
+    // const userJSON = JSON.stringify(result.data.username);
 
-    const userJSON = JSON.stringify(result.data.username);
+    const secretJSON = result.data.secret;
+    const userJSON = result.data.username;
+    // passing the secret and user directly as properties of the object passed to res.render, so we don't need to use .JSON.stringify()
 
     res.render("index.ejs", {
       secret: secretJSON,
