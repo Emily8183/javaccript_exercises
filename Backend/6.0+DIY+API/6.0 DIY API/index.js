@@ -51,7 +51,7 @@ app.post("/jokes", (req, res) => {
   res.json(newJoke);
 });
 
-//5. PUT a joke (replacing the entire joke)
+//5. PUT a joke (replacing the entire joke)(tested correct)
 //Steps: 1) find the joke; 2) change the joke by using the specific data; 3) send back the changed joke
 app.put("/jokes/:id", (req, res) => {
   const id = parseInt(req.params.id);
@@ -77,17 +77,16 @@ app.patch("/jokes/:id", (req, res) => {
   const patchJoke = jokes.find((joke) => joke.id === id);
 
   if (patchJoke) {
-    if (req.body.jokeText) {
-      patchJoke.jokeText = req.body.jokeText;
+    if (req.body.text) {
+      patchJoke.jokeText = req.body.text;
     }
-    if (req.body.jokeType) {
-      patchJoke.jokeType = req.body.jokeType;
+    if (req.body.type) {
+      patchJoke.jokeType = req.body.type;
     }
+    res.json(patchJoke);
   } else {
     res.status(404).json({ error: "Joke not found" });
   }
-
-  res.json(patchJoke);
 });
 
 //7. DELETE Specific joke
