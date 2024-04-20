@@ -34,6 +34,7 @@ app.post("/get-secret", async (req, res) => {
     res.render("index.ejs", { content: JSON.stringify(error.response.data) });
   }
 });
+//axios.get()把fetch到的data自动转成javascript object,所以需要使用JSON.stringify（）再次转到json string,pass给content
 
 //POST
 app.post("/post-secret", async (req, res) => {
