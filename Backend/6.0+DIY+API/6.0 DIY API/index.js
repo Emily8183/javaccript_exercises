@@ -18,9 +18,9 @@ app.get("/random", (req, res) => {
 app.get("/jokes/:id", (req, res) => {
   const id = parseInt(req.params.id);
   //parseInt把parameter转换为int type
-  const findJoke = jokes.find((joke) => joke.id === id);
-  if (findJoke) {
-    res.json(findJoke);
+  const patchJoke = jokes.find((joke) => joke.id === id);
+  if (patchJoke) {
+    res.json(patchJoke);
   } else {
     res.status(404).json({ error: "Joke not found" });
   }
@@ -30,9 +30,9 @@ app.get("/jokes/:id", (req, res) => {
 app.get("/filter", (req, res) => {
   const type = req.query.type;
   //"type" is the query parameter (can find it in the doc)
-  const findJokes = jokes.filter((joke) => joke.jokeType === type);
-  if (findJokes.length > 0) {
-    res.json(findJokes);
+  const patchJokes = jokes.filter((joke) => joke.jokeType === type);
+  if (patchJokes.length > 0) {
+    res.json(patchJokes);
   } else {
     res.status(404).json({ error: "Jokes not found" });
   }
@@ -56,22 +56,42 @@ app.post("/jokes", (req, res) => {
 app.put("/jokes/:id", (req, res) => {
   const id = parseInt(req.params.id);
 
-  const findJoke = jokes.find((joke) => joke.id === id);
+  const replaceJoke = jokes.find((joke) => joke.id === id);
 
-  if (findJoke) {
-    findJoke.jokeText = req.body.jokeText;
-    findJoke.jokeType = req.body.jokeType;
-    res.json(findJoke);
+  if (replaceJoke) {
+    replaceJoke.jokeText = req.body.jokeText;
+    replaceJoke.jokeType = req.body.jokeType;
+    res.json(replaceJoke);
   } else {
     res.status(404).json({ error: "Joke not found" });
   }
 
-  res.json(findJoke);
+  res.json(replaceJoke);
 });
 
 //6. PATCH a joke
+// Steps: 1) find the joke; 2) change the joke by using the id; 3) change one specific data; 4) send back the changed joke
+app.patch("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const patchJoke = jokes.find((joke) => joke.id === id);
+
+  if (patchJoke) {
+    if (req.body.jokeText) {
+      patchJoke.jokeText = req.body.jokeText;
+    }
+    if (req.body.jokeType) {
+      patchJoke.jokeType = req.body.jokeType;
+    }
+  } else {
+    res.status(404).json({ error: "Joke not found" });
+  }
+
+  res.json(patchJoke);
+});
 
 //7. DELETE Specific joke
+//Steps: 1) find the joke; 2) delete the joke; 3) send back the deleted joke
 
 //8. DELETE All jokes
 
