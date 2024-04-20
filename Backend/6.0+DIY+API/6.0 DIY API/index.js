@@ -43,8 +43,8 @@ app.get("/filter", (req, res) => {
 app.post("/jokes", (req, res) => {
   const newJoke = {
     id: jokes.length + 1,
-    text: req.body.jokeText,
-    type: req.body.jokeType,
+    jokeText: req.body.text,
+    jokeType: req.body.type,
   };
 
   jokes.push(newJoke);
@@ -108,6 +108,15 @@ app.delete("/jokes/:id", (req, res) => {
 
 //8. DELETE All jokes
 // Steps: 1) find and delete all jokes in the array; 2) requires api key; 3) print out the console.log
+app.delete("/jokes/all", (req, res) => {
+  const apiKey = req.query.apiKey;
+  if (apiKey === masterKey) {
+    jokes = [];
+    res.json({ message: "All jokes deleted successfully." });
+  } else {
+    res.status(403).json({ error: "Invalid API key." });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
