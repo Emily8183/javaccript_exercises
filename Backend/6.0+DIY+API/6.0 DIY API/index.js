@@ -39,8 +39,21 @@ app.get("/filter", (req, res) => {
 });
 
 //4. POST a new joke
+//Steps: 1) const a new joke; 2)put to the array; 3)send back the new joke
+app.post("/jokes", (req, res) => {
+  const newJoke = {
+    id: jokes.length + 1,
+    text: req.body.jokeText,
+    type: req.body.jokeType,
+  };
 
-//5. PUT a joke
+  jokes.push(newJoke);
+  res.json(newJoke);
+});
+
+//5. PUT a joke (replacing the entire joke)
+//Steps: 1) find the joke; 2) change the joke by using the specific data; 3) send back the changed joke
+app.post("/jokes/:id", (req, res) => {});
 
 //6. PATCH a joke
 
