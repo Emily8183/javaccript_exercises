@@ -92,8 +92,22 @@ app.patch("/jokes/:id", (req, res) => {
 
 //7. DELETE Specific joke
 //Steps: 1) find the joke; 2) delete the joke; 3) send back the deleted joke
+app.delete("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const deleteJoke = jokes.find((joke) => joke.id === id);
+
+  if (deleteJoke) {
+    jokes = jokes.filter((joke) => joke.id !== id);
+    res.json(deleteJoke);
+    console.log("this is deleted");
+  } else {
+    res.status(404).json({ error: "Joke not found" });
+  }
+});
 
 //8. DELETE All jokes
+// Steps: 1) find and delete all jokes in the array; 2) requires api key; 3) print out the console.log
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
