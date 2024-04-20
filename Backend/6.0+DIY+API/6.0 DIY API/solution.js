@@ -78,6 +78,7 @@ app.delete("/jokes/:id", (req, res) => {
   const searchIndex = jokes.findIndex((joke) => joke.id === id);
   if (searchIndex > -1) {
     jokes.splice(searchIndex, 1);
+    //array的splice方法，删除数组中从索引位置开始到索引位置结束的元素，并返回被删除的元素。
     res.sendStatus(200);
   } else {
     res

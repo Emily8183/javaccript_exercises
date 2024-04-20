@@ -19,6 +19,7 @@ app.get("/jokes/:id", (req, res) => {
   const id = parseInt(req.params.id);
   //parseInt把parameter转换为int type
   const patchJoke = jokes.find((joke) => joke.id === id);
+  //joke.id is the id of the joke, id is the id that the user passed in
   if (patchJoke) {
     res.json(patchJoke);
   } else {
@@ -98,6 +99,8 @@ app.delete("/jokes/:id", (req, res) => {
 
   if (deleteJoke) {
     jokes = jokes.filter((joke) => joke.id !== id);
+    //filter掉id不相等的joke，即保留id相等的joke作为删除对象；当有若干对象共享同一个id的时候，用这个方法可以删除所以相同的对象；
+    //如果用的是.find()，找到并删除的只是第一个对象，所以用filter
     res.json(deleteJoke);
     console.log("this is deleted");
   } else {
@@ -107,7 +110,7 @@ app.delete("/jokes/:id", (req, res) => {
 
 //8. DELETE All jokes
 // Steps: 1) find and delete all jokes in the array; 2) requires api key; 3) print out the console.log
-app.delete("/jokes/all", (req, res) => {
+app.delete("/all", (req, res) => {
   const apiKey = req.query.apiKey;
   if (apiKey === masterKey) {
     jokes = [];
