@@ -67,6 +67,10 @@ app.post("/put-secret", async (req, res) => {
     const response = await axios.put(
       API_URL + "/secrets/" + req.body.id,
       req.body,
+      //req.body = {
+      //   secrect: "whatever user typed",
+      //   score: 4
+      // }
       config
     );
 
