@@ -15,7 +15,7 @@ app.get("/random", (req, res) => {
 });
 
 //2. GET a specific joke
-app.get("/:id", (req, res) => {
+app.get("/jokes/:id", (req, res) => {
   const id = parseInt(req.params.id);
   //parseInt把parameter转换为int type
   const findJoke = jokes.find((joke) => joke.id === id);
@@ -27,6 +27,16 @@ app.get("/:id", (req, res) => {
 });
 
 //3. GET a jokes by filtering on the joke type
+app.get("/filter", (req, res) => {
+  const type = req.query.type;
+  //"type" is the query parameter (can find it in the doc)
+  const findJokes = jokes.filter((joke) => joke.jokeType === type);
+  if (findJokes.length > 0) {
+    res.json(findJokes);
+  } else {
+    res.status(404).json({ error: "Jokes not found" });
+  }
+});
 
 //4. POST a new joke
 
