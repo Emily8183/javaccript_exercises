@@ -59,8 +59,8 @@ app.put("/jokes/:id", (req, res) => {
   const replaceJoke = jokes.find((joke) => joke.id === id);
 
   if (replaceJoke) {
-    replaceJoke.jokeText = req.body.jokeText;
-    replaceJoke.jokeType = req.body.jokeType;
+    replaceJoke.jokeText = req.body.text;
+    replaceJoke.jokeType = req.body.type;
     res.json(replaceJoke);
   } else {
     res.status(404).json({ error: "Joke not found" });
