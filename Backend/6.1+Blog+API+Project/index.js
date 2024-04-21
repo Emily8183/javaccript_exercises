@@ -69,9 +69,7 @@ app.patch("/post/:id", (req, res) => {
     if (req.body.author) {
       replacedPost.author = req.body.author;
     }
-    if (req.body.date) {
-      replacedPost.date = req.body.date;
-    }
+    //data will be auto generated so dont need here
 
     res.json(replacedPost);
   } else {
