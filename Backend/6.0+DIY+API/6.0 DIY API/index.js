@@ -15,28 +15,110 @@ app.get("/random", (req, res) => {
 });
 
 //2. GET a specific joke
-app.get("/:id", (req, res) => {
+app.get("/jokes/:id", (req, res) => {
   const id = parseInt(req.params.id);
   //parseInt把parameter转换为int type
-  const findJoke = jokes.find((joke) => joke.id === id);
-  if (findJoke) {
-    res.json(findJoke);
+  const patchJoke = jokes.find((joke) => joke.id === id);
+  //joke.id is the id of the joke, id is the id that the user passed in
+  if (patchJoke) {
+    res.json(patchJoke);
   } else {
     res.status(404).json({ error: "Joke not found" });
   }
 });
 
 //3. GET a jokes by filtering on the joke type
+app.get("/filter", (req, res) => {
+  const type = req.query.type;
+  //"type" is the query parameter (can find it in the doc)
+  const patchJokes = jokes.filter((joke) => joke.jokeType === type);
+  if (patchJokes.length > 0) {
+    res.json(patchJokes);
+  } else {
+    res.status(404).json({ error: "Jokes not found" });
+  }
+});
 
 //4. POST a new joke
+//Steps: 1) const a new joke; 2)put to the array; 3)send back the new joke
+app.post("/jokes", (req, res) => {
+  const newJoke = {
+    id: jokes.length + 1,
+    jokeText: req.body.text,
+    jokeType: req.body.type,
+  };
 
-//5. PUT a joke
+  jokes.push(newJoke);
+  res.json(newJoke);
+});
+
+//5. PUT a joke (replacing the entire joke)(tested correct)
+//Steps: 1) find the joke; 2) change the joke by using the specific data; 3) send back the changed joke
+app.put("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const replaceJoke = jokes.find((joke) => joke.id === id);
+
+  if (replaceJoke) {
+    replaceJoke.jokeText = req.body.text;
+    replaceJoke.jokeType = req.body.type;
+    res.json(replaceJoke);
+  } else {
+    res.status(404).json({ error: "Joke not found" });
+  }
+
+  res.json(replaceJoke);
+});
 
 //6. PATCH a joke
+// Steps: 1) find the joke; 2) change the joke by using the id; 3) change one specific data; 4) send back the changed joke
+app.patch("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const patchJoke = jokes.find((joke) => joke.id === id);
+
+  if (patchJoke) {
+    if (req.body.text) {
+      patchJoke.jokeText = req.body.text;
+    }
+    if (req.body.type) {
+      patchJoke.jokeType = req.body.type;
+    }
+    res.json(patchJoke);
+  } else {
+    res.status(404).json({ error: "Joke not found" });
+  }
+});
 
 //7. DELETE Specific joke
+//Steps: 1) find the joke; 2) delete the joke; 3) send back the deleted joke
+app.delete("/jokes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const deleteJoke = jokes.find((joke) => joke.id === id);
+
+  if (deleteJoke) {
+    jokes = jokes.filter((joke) => joke.id !== id);
+    //filter掉id不相等的joke，即保留id相等的joke作为删除对象；当有若干对象共享同一个id的时候，用这个方法可以删除所以相同的对象；
+    //如果用的是.find()，找到并删除的只是第一个对象，所以用filter
+    res.json(deleteJoke);
+    console.log("this is deleted");
+  } else {
+    res.status(404).json({ error: "Joke not found" });
+  }
+});
 
 //8. DELETE All jokes
+// Steps: 1) find and delete all jokes in the array; 2) requires api key; 3) print out the console.log
+app.delete("/all", (req, res) => {
+  const apiKey = req.query.apiKey;
+  if (apiKey === masterKey) {
+    jokes = [];
+    res.json({ message: "All jokes deleted successfully." });
+  } else {
+    res.status(403).json({ error: "Invalid API key." });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
