@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 const app = express();
 const port = 4000;
 
-// In-memory data store
+// In-memory data store (building my own API)
 let posts = [
   {
     id: 1,
