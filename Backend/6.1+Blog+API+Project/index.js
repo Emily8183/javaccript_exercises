@@ -12,7 +12,28 @@ const port = 4000;
 
 // In-memory data store (building my own API)
 
+app.use(bodyParser.json());
+//当req.body 包含客户端发送的 JSON 数据时使用
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//GET All posts
+app.get("/", (req, res) => {
+  res.json(posts);
+});
+//如果get不到数据，可能没有添加app.use(bodyParser.json())解析req.body;
+
+//POST
+app.post("/post", (req, res) => {
+  const newPost = {
+    id: posts.length + 1,
+    inputTitle: req.body.title,
+    inputContent: req.body.content,
+    inputAuthor: req.body.author,
+    inputDate: req.body.date,
+  };
+  posts.push(newPost);
+  res.json(newPost);
+});
 
 let posts = [
   {
@@ -42,12 +63,6 @@ let posts = [
 ];
 
 let lastId = 3;
-
-// Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-//Write your code here//
 
 //CHALLENGE 1: GET All posts
 
