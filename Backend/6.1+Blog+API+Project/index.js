@@ -11,6 +11,9 @@ const port = 4000;
 // 4) res.json (to convert to JSON string)
 
 // In-memory data store (building my own API)
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 let posts = [
   {
     id: 1,
