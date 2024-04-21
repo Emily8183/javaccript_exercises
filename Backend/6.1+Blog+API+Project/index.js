@@ -4,6 +4,12 @@ import bodyParser from "body-parser";
 const app = express();
 const port = 4000;
 
+//Step:
+// 1) apply bodyParser to app.use
+// 2) see if there're any API requiring API
+// 3) build app.get() etc by using different syntax
+// 4) res.json (to convert to JSON string)
+
 // In-memory data store (building my own API)
 let posts = [
   {
