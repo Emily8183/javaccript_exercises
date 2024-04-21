@@ -22,6 +22,18 @@ app.get("/", (req, res) => {
 });
 //如果get不到数据，可能没有添加app.use(bodyParser.json())解析req.body;
 
+//GET a specific post by id
+app.get("/post/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const foundPost = posts.find((post) => post.id === id);
+
+  if (foundPost) {
+    res.json(foundPost);
+  } else {
+    res.status(404).json({ error: "Post not found" });
+  }
+});
+
 //POST
 app.post("/post", (req, res) => {
   const newPost = {
@@ -63,10 +75,6 @@ let posts = [
 ];
 
 let lastId = 3;
-
-//CHALLENGE 1: GET All posts
-
-//CHALLENGE 2: GET a specific post by id
 
 //CHALLENGE 3: POST a new post
 
