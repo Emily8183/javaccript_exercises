@@ -71,9 +71,11 @@ app.post("/api/posts/:id", async (req, res) => {
 });
 
 // Delete a post
-app.get("/api/posts/delete/:id", async (req, res) => {
+app.get("/api/posts/delete/:id", async (req, res) => {\
+  //这里的路径和index.ejs中第23行一致，这里是和前端挂靠
   try {
     await axios.delete(`${API_URL}/posts/${req.params.id}`);
+    //这里的路径和postman中设置的delete路径一致，fetch数据来自API，因此和API挂靠
     res.redirect("/");
   } catch (error) {
     res.status(500).json({ message: "Error deleting post" });
