@@ -76,6 +76,21 @@ app.patch("/post/:id", (req, res) => {
   }
 });
 
+// DELETE a specific post by providing the post id.
+app.delete("/post/:id", (req, res) => {
+  const findId = parseInt(req.params.id);
+
+  const deletedPost = posts.find((post) => post.id === findId);
+
+  if (deletedPost) {
+    posts = posts.filter((post) => post.id !== findId);
+    res.json({ message: `post ${findId} is deleted` });
+    // res.json(deletedPost)和message不能同时打印。因为deletedPost已经不存在了
+  } else {
+    res.status(404).json({ error: "Post not found" });
+  }
+});
+
 let posts = [
   {
     id: 1,
@@ -104,8 +119,6 @@ let posts = [
 ];
 
 let lastId = 3;
-
-//CHALLENGE 5: DELETE a specific post by providing the post id.
 
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
