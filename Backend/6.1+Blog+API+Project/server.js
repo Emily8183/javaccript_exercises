@@ -71,7 +71,7 @@ app.post("/api/posts/:id", async (req, res) => {
 });
 
 // Delete a post
-app.get("/api/posts/delete/:id", async (req, res) => {\
+app.get("/api/posts/delete/:id", async (req, res) => {
   //这里的路径和index.ejs中第23行一致，这里是和前端挂靠
   try {
     await axios.delete(`${API_URL}/posts/${req.params.id}`);
