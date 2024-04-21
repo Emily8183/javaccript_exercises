@@ -34,17 +34,46 @@ app.get("/post/:id", (req, res) => {
   }
 });
 
-//POST
+//POST a new post
 app.post("/post", (req, res) => {
   const newPost = {
     id: posts.length + 1,
-    inputTitle: req.body.title,
-    inputContent: req.body.content,
-    inputAuthor: req.body.author,
-    inputDate: req.body.date,
+    title: req.body.title,
+    content: req.body.content,
+    author: req.body.author,
+    date: req.body.date,
+    // 键的名称来源于posts[]
   };
+  //Here's the full URL, notice each key-value pair connects by "&"
+  // http://localhost:4000/post/?inputTitle=BA&inputContent=BAContent&inputAuthor=BAA&inputDate=BADate
   posts.push(newPost);
   res.json(newPost);
+});
+
+//PATCH a post when you just want to update one parameter
+app.patch("/post/:id", (req, res) => {
+  const findId = parseInt(req.params.id);
+
+  const replacedPost = posts.find((post) => post.id === findId);
+
+  if (replacedPost) {
+    if (req.body.title) {
+      replacedPost.title = req.body.title;
+    }
+    if (req.body.content) {
+      replacedPost.content = req.body.content;
+    }
+    if (req.body.author) {
+      replacedPost.author = req.body.author;
+    }
+    if (req.body.date) {
+      replacedPost.date = req.body.date;
+    }
+
+    res.json(replacedPost);
+  } else {
+    res.status(404).json({ error: "Post not found" });
+  }
 });
 
 let posts = [
@@ -75,10 +104,6 @@ let posts = [
 ];
 
 let lastId = 3;
-
-//CHALLENGE 3: POST a new post
-
-//CHALLENGE 4: PATCH a post when you just want to update one parameter
 
 //CHALLENGE 5: DELETE a specific post by providing the post id.
 
