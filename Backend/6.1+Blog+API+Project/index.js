@@ -41,13 +41,16 @@ app.post("/post", (req, res) => {
     title: req.body.title,
     content: req.body.content,
     author: req.body.author,
-    date: req.body.date,
+    // date: req.body.date,
+    date: new Date(),
     // 键的名称来源于posts[]
   };
   //Here's the full URL, notice each key-value pair connects by "&"
   // http://localhost:4000/post/?inputTitle=BA&inputContent=BAContent&inputAuthor=BAA&inputDate=BADate
-  posts.push(newPost);
+  // posts.push(newPost);
+  res.status(201).json(newPost);
   res.json(newPost);
+  //返回状态码为 201，表示创建成功（在Postman显示201 Created），并将新创建的帖子对象以 JSON 格式发送给客户端。
 });
 
 //PATCH a post when you just want to update one parameter
@@ -118,7 +121,7 @@ let posts = [
   },
 ];
 
-let lastId = 3;
+// let lastId = 3;
 
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
