@@ -20,6 +20,7 @@ app.get("/jokes/:id", (req, res) => {
   //parseInt把parameter转换为int type
   const patchJoke = jokes.find((joke) => joke.id === id);
   //joke.id is the id of the joke, id is the id that the user passed in
+  //find() is a method that returns the first element in the array that satisfies the provided testing function（in this case, it's joke.id === id)
   if (patchJoke) {
     res.json(patchJoke);
   } else {
