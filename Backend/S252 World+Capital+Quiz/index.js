@@ -13,11 +13,23 @@ const db = new pg.Client({
   port: 5432,
 });
 
-let quiz = [
-  { country: "France", capital: "Paris" },
-  { country: "United Kingdom", capital: "London" },
-  { country: "United States of America", capital: "New York" },
-];
+db.connect();
+
+db.query("SELECT * FROM capitals", (err, res) => {
+  if (err) {
+    console.log("Error executing query", err.stack);
+  } else {
+    quiz = res.rows;
+    // res.rows is an array of objects to replace the hardcoded quiz
+  }
+  db.end();
+});
+
+// let quiz = [
+//   { country: "France", capital: "Paris" },
+//   { country: "United Kingdom", capital: "London" },
+//   { country: "United States of America", capital: "New York" },
+// ];
 
 let totalCorrect = 0;
 
