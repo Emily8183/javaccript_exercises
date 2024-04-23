@@ -25,11 +25,11 @@ db.query("SELECT * FROM capitals", (err, res) => {
   db.end();
 });
 
-// let quiz = [
-//   { country: "France", capital: "Paris" },
-//   { country: "United Kingdom", capital: "London" },
-//   { country: "United States of America", capital: "New York" },
-// ];
+let quiz = [
+  // { country: "France", capital: "Paris" },
+  // { country: "United Kingdom", capital: "London" },
+  // { country: "United States of America", capital: "New York" },
+];
 
 let totalCorrect = 0;
 
