@@ -85,6 +85,10 @@ app.delete("/post/:id", (req, res) => {
 
   if (deletedPost) {
     posts = posts.filter((post) => post.id !== findId);
+    //如果找到了需要删除的post，只保留post[]中不等于findId的post，相当于删除了findId的post
+    // 除了这个方法，还可以用posts.splice()
+    // const index = posts.findIndex((post) => post.id === findId);
+    // posts.splice(index, 1);
     res.json({ message: `post ${findId} is deleted` });
     // res.json(deletedPost)和message不能同时打印。因为deletedPost已经不存在了
   } else {
