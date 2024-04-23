@@ -15,18 +15,17 @@ const db = new pg.Client({
 
 db.connect();
 
-const quiz = [];
+let quiz = [];
+//use let instead of const because we want to reassign the value of quiz
 
 db.query("SELECT * FROM flags", (err, res) => {
   if (err) {
     console.error("Error executing query", err.stack);
   } else {
     quiz = res.rows;
-
   }
   db.end();
 });
- 
 
 let totalCorrect = 0;
 
