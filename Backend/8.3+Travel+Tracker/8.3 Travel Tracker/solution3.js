@@ -37,6 +37,7 @@ app.get("/", async (req, res) => {
 app.post("/add", async (req, res) => {
   const input = req.body["country"];
 
+  // select the country name from the countries table, find the country_code. Error: the country name does not exist
   try {
     const result = await db.query(
       "SELECT country_code FROM countries WHERE country_name = $1",

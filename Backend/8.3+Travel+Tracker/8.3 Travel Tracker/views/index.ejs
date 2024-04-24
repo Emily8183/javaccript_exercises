@@ -911,12 +911,15 @@
     <h2 class="total-count">Total Countries: <%=total%></h2>
     <script>
       const country_codes = "<%= countries %>".split(",");
-      // ejs converted the array[] of countries to a string, in order to get an array, we use .split() to convert to string back to an array
-      console.log(typeof "<%= countries %>");
+      // ejs converted the array[] of countries to a string, in order to get an array, we use .split() to convert the string back to an array
+      console.log(typeof country_codes);
 
       console.log(country_codes);
+
       country_codes.forEach((code) => {
-        document.getElementById(code).style.fill = "teal";
+        console.log(document.getElementById(code));
+        console.log(code);
+        document.getElementById(code).style.fill = "green";
         //在这段代码中，document.getElementById(code) 的 code 是一个变量，它代表了每一个国家代码。这个变量是在 forEach 循环中遍历 country_codes 数组时使用的，表示当前循环到的国家代码。
         // document.getElementById() 是一个 DOM 方法，它用于通过元素的 id 属性获取页面中的元素。在这里，code 变量代表的是当前国家的代码，它作为参数传递给 getElementById() 方法，以便从页面中获取对应的元素。
         // 例如，如果你有一个 id 为 "US" 的元素，document.getElementById("US") 就会返回该元素，然后你就可以修改这个元素的样式，比如将 style.fill 设置为 "teal"。
