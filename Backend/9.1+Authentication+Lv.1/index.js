@@ -37,12 +37,6 @@ app.post("/register", async (req, res) => {
     "INSERT INTO users (email,password) VALUES ($1, $2)",
     [email, password]
   );
-  res.render("secrets.ejs", {
-    user: {
-      email: email,
-      password: password,
-    },
-  });
   res.render("secrets.ejs");
 });
 
