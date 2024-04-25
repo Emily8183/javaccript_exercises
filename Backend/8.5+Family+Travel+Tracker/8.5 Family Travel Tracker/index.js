@@ -8,8 +8,8 @@ const port = 3000;
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
-  database: "world",
-  password: "123456",
+  database: "Family Travel Tracker",
+  password: "W4vTqMRgcuiERpa",
   port: 5432,
 });
 db.connect();
@@ -19,10 +19,18 @@ app.use(express.static("public"));
 
 let currentUserId = 1;
 
-let users = [
-  { id: 1, name: "Angela", color: "teal" },
-  { id: 2, name: "Jack", color: "powderblue" },
-];
+// const colors = [
+//   "red",
+//   "green",
+//   "yellow",
+//   "olive",
+//   "orange",
+//   "teal",
+//   "blue",
+//   "violet",
+//   "purple",
+//   "pink",
+// ];
 
 async function checkVisisted() {
   const result = await db.query("SELECT country_code FROM visited_countries");
@@ -32,8 +40,23 @@ async function checkVisisted() {
   });
   return countries;
 }
+
+// show each family members' map
+//TODO: to chanage user, color, countries, and countries_length to the current user
 app.get("/", async (req, res) => {
   const countries = await checkVisisted();
+
+  const usersData = await db.query(
+    "SELECT id, name, color FROM family_members"
+  );
+  const users = usersData.rows.map((user) => {
+    return {
+      id: user.id,
+      name: user.name,
+      color: user.color,
+    };
+  });
+
   res.render("index.ejs", {
     countries: countries,
     total: countries.length,
@@ -41,6 +64,8 @@ app.get("/", async (req, res) => {
     color: "teal",
   });
 });
+
+//to show the map of the selected country
 app.post("/add", async (req, res) => {
   const input = req.body["country"];
 
@@ -54,6 +79,7 @@ app.post("/add", async (req, res) => {
     const countryCode = data.country_code;
     try {
       await db.query(
+        //TODO: insert into a particular family member's visited country list
         "INSERT INTO visited_countries (country_code) VALUES ($1)",
         [countryCode]
       );
@@ -65,9 +91,17 @@ app.post("/add", async (req, res) => {
     console.log(err);
   }
 });
-app.post("/user", async (req, res) => {});
 
+//to change the current user
+app.post("/user", async (req, res) => {
+  const user = req.body["user"];
+  currentUserId = user;
+  res.redirect("/");
+});
+
+//to add new family member on new.ejs
 app.post("/new", async (req, res) => {
+  //insert the family member to the name database (id, name, color)
   //Hint: The RETURNING keyword can return the data that was inserted.
   //https://www.postgresql.org/docs/current/dml-returning.html
 });
