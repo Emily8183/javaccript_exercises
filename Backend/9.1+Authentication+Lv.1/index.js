@@ -9,8 +9,8 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "secrets",
-  password: "",
-  // W4vTqMRgcuiERpa
+  password: " ",
+  //W4vTqMRgcuiERpa
   port: 5432,
 });
 db.connect();
@@ -34,20 +34,24 @@ app.post("/register", async (req, res) => {
   const email = req.body.username;
   const password = req.body.password;
 
-  const checkUserExisting = await db.query(
-    "SELECT * FROM users WHERE email = $1",
-    [email]
-  );
-  //check if the same email is existed
+  try {
+    const checkUserExisting = await db.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+    //check if the same email is existed
 
-  if (checkUserExisting.rows.length > 0) {
-    res.send("User already exists");
-  } else {
-    await db.query("INSERT INTO users (email,password) VALUES ($1, $2)", [
-      email,
-      password,
-    ]);
-    res.render("secrets.ejs");
+    if (checkUserExisting.rows.length > 0) {
+      res.send("User already exists");
+    } else {
+      await db.query("INSERT INTO users (email,password) VALUES ($1, $2)", [
+        email,
+        password,
+      ]);
+      res.render("secrets.ejs");
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 
