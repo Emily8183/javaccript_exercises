@@ -10,6 +10,7 @@ const db = new pg.Client({
   host: "localhost",
   database: "secrets",
   password: "",
+  // W4vTqMRgcuiERpa
   port: 5432,
 });
 db.connect();
@@ -34,7 +35,7 @@ app.post("/register", async (req, res) => {
   const password = req.body.password;
 
   const checkUserExisting = await db.query(
-    "SELECT * FROM users WHERE email = ",
+    "SELECT * FROM users WHERE email = $1",
     [email]
   );
   //check if the same email is existed
@@ -42,10 +43,10 @@ app.post("/register", async (req, res) => {
   if (checkUserExisting.rows.length > 0) {
     res.send("User already exists");
   } else {
-    const user = await db.query(
-      "INSERT INTO users (email,password) VALUES ($1, $2)",
-      [email, password]
-    );
+    await db.query("INSERT INTO users (email,password) VALUES ($1, $2)", [
+      email,
+      password,
+    ]);
     res.render("secrets.ejs");
   }
 });
