@@ -20,11 +20,13 @@ app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM visited_countries");
+    const result = await db.query("SELECT country_code FROM visited_countries");
+
     let countries = [];
     result.rows.forEach((country) => {
       countries.push(country.country_code);
     });
+
     res.render("index.ejs", {
       countries: countries,
       total: countries.length,
@@ -41,26 +43,30 @@ app.get("/", async (req, res) => {
 
 //INSERT INTO visited_countries (country_code) VALUES ()
 app.post("/add", async (req, res) => {
-  try {
-    const result = await db.query(
-      "SELECT country_code FROM countries WHERE country_name = $1",
-      // select the country name from the countries table, find the country_code
-      // $1为占位符
-      [req.body["country"]]
-      // 代入req.body["country"],因为是array，所以外面要用[]
-    );
+  const result = await db.query(
+    "SELECT country_code FROM countries WHERE country_name = $1",
+    [req.body["country"]]
+  );
 
-    //After found the country name, insert the country_code into the visited_countries table
-    if (result.rows.length !== 0) {
-      const data = result.rows[0];
-      await db.query(
-        "INSERT INTO visited_countries (country_code) VALUES ($1)",
-        [data.country_code]
-      );
-      res.redirect("/");
-    }
-  } catch (error) {
-    console.error(error);
+  // select the country name from the countries table, find the country_code
+  // $1为占位符
+
+  // 代入req.body["country"],因为是array，所以外面要用[]
+  // 得出的result 是根据用户输入的country name转化得到的country code,是postgres中的object形式
+
+  // console.log(typeof result);
+
+  //After found the country name, insert the country_code into the visited_countries table
+  if (result.rows.length !== 0) {
+    const data = result.rows[0];
+    // result.rows 是从数据库查询中返回的结果行的数组。每一行都表示一个对象，其中包含数据库表中每一列的值。
+    // data是指result.rows[]这个数组中的第一个值
+    // console.log(data);
+    // data的打印结果为{ country_code: 'IT' }
+    await db.query("INSERT INTO visited_countries (country_code) VALUES ($1)", [
+      data.country_code,
+    ]);
+    res.redirect("/");
   }
 });
 
