@@ -65,7 +65,7 @@ app.get("/", async (req, res) => {
   });
 });
 
-//to show the map of the selected country
+//to show the map of the selected countries
 app.post("/add", async (req, res) => {
   const input = req.body["country"];
 
