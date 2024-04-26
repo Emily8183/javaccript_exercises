@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "secrets",
-  password: " ",
+  password: "",
   //W4vTqMRgcuiERpa
   port: 5432,
 });
@@ -58,6 +58,22 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const email = req.body.username;
   const password = req.body.password;
+
+  try {
+    const passwordDatabased = await db.query(
+      "SELECT password FROM users WHERE email = ($1)",
+      [email]
+    );
+
+    if (password === passwordDatabased.rows[0].password) {
+      res.render("secrets.ejs");
+    } else {
+      res.send("Wrong password");
+    }
+  } catch (error) {
+    console.log(error);
+    res.send("User not found");
+  }
 });
 
 app.listen(port, () => {
