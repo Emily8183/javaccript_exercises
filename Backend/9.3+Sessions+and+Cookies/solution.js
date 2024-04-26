@@ -66,6 +66,7 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/secrets", (req, res) => {
+  //"cb" points all the way to here
   // console.log(req.user);
   //  req.isAuthenticated() is a function that this comes from Passport and it allows us to check, "Is the current user who's logged in in the current session authenticated already?"
   if (req.isAuthenticated()) {
