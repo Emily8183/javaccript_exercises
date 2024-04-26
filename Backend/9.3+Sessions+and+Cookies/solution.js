@@ -20,6 +20,12 @@ app.use(
     //means if you want to save the session in postgres
     saveUninitialized: true,
     //means if you want to store the uninitialized sessions into our server memory.
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+      //maxAge sets when cookies will expire
+      //1000 millisecond as a second
+      // this is one day length cookie
+    },
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,7 +39,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "secrets",
-  password: "123456",
+  password: "",
   port: 5432,
 });
 db.connect();
@@ -94,11 +100,15 @@ app.post("/register", async (req, res) => {
           console.error("Error hashing password:", err);
         } else {
           const result = await db.query(
+            //this part means we can get hold of the new user through this result of this database query.
+            //The user gets inserted and then it comes back in the result becuz we're using the following returning function.在执行插入操作后，返回插入的行的特定列的值。
             "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
+            // RETURNING SQL command in order to return everything that we get back from the record that we just inserted.
             [email, hash]
           );
           const user = result.rows[0];
           req.login(user, (err) => {
+            //this part let the user log in automatically.
             console.log("success");
             res.redirect("/secrets");
           });
