@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "Family Travel Tracker",
-  password: "W4vTqMRgcuiERpa",
+  password: "",
   port: 5432,
 });
 db.connect();
@@ -65,7 +65,7 @@ app.get("/", async (req, res) => {
   });
 });
 
-//to show the map of the selected country
+//to show the map of the selected countries
 app.post("/add", async (req, res) => {
   const input = req.body["country"];
 
